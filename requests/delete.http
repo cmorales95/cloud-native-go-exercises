@@ -1,0 +1,5 @@
+# curl -X DELETE -v http://localhost:8080/v1/key-a
+DELETE http://localhost:8080/v1/key-a
+
+###
+
