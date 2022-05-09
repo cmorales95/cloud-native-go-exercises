@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgres:
+    image: 'postgis/postgis'
+    container_name: cloud-native-go-database
+    environment:
+      - POSTGRES_DB=cloud_native
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
