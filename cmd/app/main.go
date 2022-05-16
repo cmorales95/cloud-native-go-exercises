@@ -7,6 +7,8 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"path/filepath"
+	"runtime"
 
 	"github.com/cmorales95/cloud-native-go-exercises/entities"
 	transactionLogger "github.com/cmorales95/cloud-native-go-exercises/logger"
@@ -127,8 +129,12 @@ func main() {
 	r.HandleFunc("/v1/{key}", KeyValueGetHandler).Methods(http.MethodGet)
 	r.HandleFunc("/v1/{key}", KeyValueDeleteHandler).Methods(http.MethodDelete)
 
-	fmt.Println()
-	log.Fatal(http.ListenAndServe(":8080", r))
+	var _, b, _, _ = runtime.Caller(0)
+	baseDir := filepath.Dir(b)
+
+	log.Fatal(http.ListenAndServeTLS(":8080",
+		filepath.Join(baseDir, "/certificate/cert.pem"),
+		filepath.Join(baseDir, "/certificate/key.pem"), r))
 
 }
 
